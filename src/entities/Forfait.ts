@@ -1,0 +1,41 @@
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+} from 'typeorm';
+import { AchatForfait } from './AchatForfait';
+
+
+@Entity('forfaits')
+export class Forfait {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  prix: number;
+
+  @Column()
+  voix: number;
+
+  @Column()
+  sms: number;
+
+  @Column()
+  internet: number;
+
+  @Column()
+  validite: number;
+
+  @Column()
+  categorie: string;
+
+  @Column({ default: false })
+  actif: boolean;
+
+  @OneToMany(() => AchatForfait, (achatForfait) => achatForfait.forfait)
+  achatForfaits: AchatForfait[];
+}
