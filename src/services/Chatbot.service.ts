@@ -1,13 +1,14 @@
-import { AppDataSource } from '../config/data_source';
-import { User } from '../entities/User';
-import { Conversation } from '../entities/Conversation';
-import { Message } from '../entities/Message';
-import { Validation } from '../entities/Validation';
-import { Forfait } from '../entities/Forfait';
-import { AchatForfait } from '../entities/AchatForfait';
-import { ValidationService } from './Validation.service';
-import { MailService } from './Mail.service';
-import { WhatsAppService } from './WhatsApp.service';
+import { AppDataSource } from "../config/data_source.js";
+import { AchatForfait } from "../entities/AchatForfait.js";
+import { Conversation } from "../entities/Conversation.js";
+import { Forfait } from "../entities/Forfait.js";
+import { Message } from "../entities/Message.js";
+import { User } from "../entities/User.js";
+import { Validation } from "../entities/Validation.js";
+import { MailService } from "./Mail.service.js";
+import { ValidationService } from "./Validation.service.js";
+import { WhatsAppService } from "./WhatsApp.service.js";
+
 
 export class ChatbotService {
   private validationService: ValidationService;

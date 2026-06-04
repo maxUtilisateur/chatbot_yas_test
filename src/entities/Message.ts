@@ -5,22 +5,20 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Conversation } from './Conversation';
-
-
+import { Conversation } from './Conversation.js';
 
 @Entity('messages')
 export class Message {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'text' })
-  contenu: string;
+  contenu!: string;
 
   @Column({ type: 'timestamp' })
-  dateEnvoi: Date;
+  dateEnvoi!: Date;
 
-  @ManyToOne(() => Conversation, (conversation) => conversation.messages)
+  @ManyToOne(() => Conversation, (conversation) => conversation.messages) // ✅ fonction de rappel
   @JoinColumn({ name: 'conversation_id' })
-  conversation: Conversation;
+  conversation!: Conversation;
 }

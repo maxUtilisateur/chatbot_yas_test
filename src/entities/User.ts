@@ -4,40 +4,39 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { AchatForfait } from './AchatForfait';
-import { Validation } from './Validation';
-import { Conversation } from './Conversation';
-
+import { AchatForfait } from './AchatForfait.js';
+import { Validation } from './Validation.js';
+import { Conversation } from './Conversation.js';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  user_id: number;
+  user_id!: number;
 
   @Column()
-  lastname: string;
+  lastname!: string;
 
   @Column()
-  firstname: string;
+  firstname!: string;
 
   @Column()
-  tel: string;
+  tel!: string;
 
   @Column()
-  mail: string;
+  mail!: string;
 
   @Column({ default: 0 })
-  balance: number;
+  balance!: number;
 
-  @OneToMany(() => AchatForfait, (achatForfait) => achatForfait.user)
-  achatForfaits: AchatForfait[];
+  @OneToMany(() => AchatForfait, (achatForfait) => achatForfait.user) 
+  achatForfaits!: AchatForfait[];
 
-  @OneToMany(() => Validation, (validation) => validation.user)
-  validations: Validation[];
+  @OneToMany(() => Validation, (validation) => validation.user) 
+  validations!: Validation[];
 
-  @OneToMany(() => Conversation, (conversation) => conversation.user)
-  conversations: Conversation[];
+  @OneToMany(() => Conversation, (conversation) => conversation.user) 
+  conversations!: Conversation[];
 }

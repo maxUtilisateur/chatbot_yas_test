@@ -5,34 +5,33 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from './User';
-import { Forfait } from './Forfait';
-
+import { User } from './User.js';
+import { Forfait } from './Forfait.js';
 
 @Entity('achat_forfaits')
 export class AchatForfait {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'timestamp' })
-  dateAchat: Date;
+  dateAchat!: Date;
 
   @Column()
-  montant: number;
+  montant!: number;
 
   @Column({ default: false })
-  statut: boolean;
+  statut!: boolean;
 
   @Column({ nullable: true })
-  referenceTransaction: string;
+  referenceTransaction!: string;
 
-  @ManyToOne(() => User, (user) => user.achatForfaits)
+  @ManyToOne(() => User, (user) => user.achatForfaits) 
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user!: User;
 
-  @ManyToOne(() => Forfait, (forfait) => forfait.achatForfaits)
+  @ManyToOne(() => Forfait, (forfait) => forfait.achatForfaits) 
   @JoinColumn({ name: 'forfait_id' })
-  forfait: Forfait;
+  forfait!: Forfait;
 
   confirmerAchat(): void {
     this.statut = true;

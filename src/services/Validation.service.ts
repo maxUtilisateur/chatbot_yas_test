@@ -1,7 +1,8 @@
 import 'dotenv/config';
-import { User } from '../entities/User';
-import { Validation } from '../entities/Validation';
-import { AppDataSource } from '../config/data_source';
+import { AppDataSource } from '../config/data_source.js';
+import { User } from '../entities/User.js';
+import { Validation } from '../entities/Validation.js';
+
 
 export class ValidationService {
 

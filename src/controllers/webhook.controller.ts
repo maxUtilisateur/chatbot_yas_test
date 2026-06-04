@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ChatbotService } from '../services/Chatbot.service';
+import { ChatbotService } from '../services/Chatbot.service.js';
 
 export const verifyWebhook = (req: Request, res: Response): Response => {
   const verify_token = process.env.VERIFY_TOKEN;

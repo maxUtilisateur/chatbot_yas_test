@@ -1,10 +1,9 @@
 import 'dotenv/config';
 import 'reflect-metadata';
 import express from 'express';
-import { AppDataSource } from './config/data_source';
-import webhookRoutes from './routes/webhook.routes';
-import { User } from './entities/User';
-import { Forfait } from './entities/Forfait';
+import webhookRoutes from './routes/webhook.routes.js';
+import { AppDataSource } from './config/data_source.js';
+import { User } from './entities/User.js';
 
 const app = express();
 app.use(express.json());

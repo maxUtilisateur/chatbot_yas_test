@@ -6,35 +6,33 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { User } from './User';
-import { Message } from './Message';
-
-
+import { User } from './User.js';
+import { Message } from './Message.js';
 
 @Entity('conversations')
 export class Conversation {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'timestamp' })
-  dateDebut: Date;
+  dateDebut!: Date;
 
   @Column({ type: 'timestamp' })
-  dateFin: Date;
+  dateFin!: Date;
 
   @Column({ default: false })
-  statut: boolean;
+  statut!: boolean;
 
   @Column({ nullable: true, default: 'START' })
-  step: string;
+  step!: string;
 
   @Column({ type: 'text', nullable: true })
-  tempData: string;
+  tempData!: string;
 
-  @ManyToOne(() => User, (user) => user.conversations)
+  @ManyToOne(() => User, (user) => user.conversations) 
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user!: User;
 
-  @OneToMany(() => Message, (message) => message.conversation)
-  messages: Message[];
+  @OneToMany(() => Message, (message) => message.conversation) 
+  messages!: Message[];
 }

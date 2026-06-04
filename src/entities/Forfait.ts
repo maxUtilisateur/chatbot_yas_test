@@ -4,38 +4,37 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { AchatForfait } from './AchatForfait';
-
+import { AchatForfait } from './AchatForfait.js';
 
 @Entity('forfaits')
 export class Forfait {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  prix: number;
+  prix!: number;
 
   @Column()
-  voix: number;
+  voix!: number;
 
   @Column()
-  sms: number;
+  sms!: number;
 
   @Column()
-  internet: number;
+  internet!: number;
 
   @Column()
-  validite: number;
+  validite!: number;
 
   @Column()
-  categorie: string;
+  categorie!: string;
 
   @Column({ default: false })
-  actif: boolean;
+  actif!: boolean;
 
   @OneToMany(() => AchatForfait, (achatForfait) => achatForfait.forfait)
-  achatForfaits: AchatForfait[];
+  achatForfaits!: AchatForfait[];
 }

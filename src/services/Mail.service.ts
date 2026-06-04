@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { Validation } from '../entities/Validation';
 import nodemailer from 'nodemailer';
+import { Validation } from '../entities/Validation.js';
 
 export class MailService {
 

@@ -5,26 +5,26 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from './User';
+import { User } from './User.js';
 
 @Entity('validations')
 export class Validation {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'timestamp' })
-  creation: Date;
+  creation!: Date;
 
   @Column({ type: 'timestamp' })
-  expiration: Date;
+  expiration!: Date;
 
   @Column()
-  code: string;
+  code!: string;
 
   @Column({ default: false })
-  statut: boolean;
+  statut!: boolean;
 
-  @ManyToOne(() => User, (user) => user.validations)
+  @ManyToOne(() => User, (user) => user.validations) 
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user!: User;
 }
