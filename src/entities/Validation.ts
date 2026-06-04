@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Relation,
 } from 'typeorm';
 import { User } from './User.js';
 
@@ -26,5 +27,5 @@ export class Validation {
 
   @ManyToOne(() => User, (user) => user.validations) 
   @JoinColumn({ name: 'user_id' })
-  user!: User;
+  user!: Relation<User>;
 }

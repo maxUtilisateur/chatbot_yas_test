@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  Relation,
 } from 'typeorm';
 import { AchatForfait } from './AchatForfait.js';
 
@@ -36,5 +37,5 @@ export class Forfait {
   actif!: boolean;
 
   @OneToMany(() => AchatForfait, (achatForfait) => achatForfait.forfait)
-  achatForfaits!: AchatForfait[];
+  achatForfaits!: Relation<AchatForfait>[];
 }

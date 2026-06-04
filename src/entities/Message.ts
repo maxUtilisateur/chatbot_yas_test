@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Relation,
 } from 'typeorm';
 import { Conversation } from './Conversation.js';
 
@@ -20,5 +21,5 @@ export class Message {
 
   @ManyToOne(() => Conversation, (conversation) => conversation.messages) // ✅ fonction de rappel
   @JoinColumn({ name: 'conversation_id' })
-  conversation!: Conversation;
+  conversation!: Relation<Conversation>;
 }

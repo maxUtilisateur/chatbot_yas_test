@@ -5,6 +5,7 @@ import {
   ManyToOne,
   OneToMany,
   JoinColumn,
+  Relation,
 } from 'typeorm';
 import { User } from './User.js';
 import { Message } from './Message.js';
@@ -31,8 +32,8 @@ export class Conversation {
 
   @ManyToOne(() => User, (user) => user.conversations) 
   @JoinColumn({ name: 'user_id' })
-  user!: User;
+  user!: Relation<User>;
 
   @OneToMany(() => Message, (message) => message.conversation) 
-  messages!: Message[];
+  messages!: Relation<Message>[];
 }

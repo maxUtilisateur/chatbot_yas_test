@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  Relation,
 } from 'typeorm';
 import { AchatForfait } from './AchatForfait.js';
 import { Validation } from './Validation.js';
@@ -32,11 +33,11 @@ export class User {
   balance!: number;
 
   @OneToMany(() => AchatForfait, (achatForfait) => achatForfait.user) 
-  achatForfaits!: AchatForfait[];
+  achatForfaits!: Relation<AchatForfait>[];
 
   @OneToMany(() => Validation, (validation) => validation.user) 
-  validations!: Validation[];
+  validations!: Relation<Validation>[];
 
   @OneToMany(() => Conversation, (conversation) => conversation.user) 
-  conversations!: Conversation[];
+  conversations!: Relation<Conversation>[];
 }

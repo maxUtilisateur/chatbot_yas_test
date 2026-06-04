@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Relation,
 } from 'typeorm';
 import { User } from './User.js';
 import { Forfait } from './Forfait.js';
@@ -27,11 +28,11 @@ export class AchatForfait {
 
   @ManyToOne(() => User, (user) => user.achatForfaits) 
   @JoinColumn({ name: 'user_id' })
-  user!: User;
+  user!: Relation<User>;
 
   @ManyToOne(() => Forfait, (forfait) => forfait.achatForfaits) 
   @JoinColumn({ name: 'forfait_id' })
-  forfait!: Forfait;
+  forfait!: Relation<Forfait>;
 
   confirmerAchat(): void {
     this.statut = true;
