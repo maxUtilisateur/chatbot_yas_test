@@ -3,7 +3,6 @@ import dns from 'dns';
 import nodemailer from 'nodemailer';
 import { Validation } from '../entities/Validation.js';
 
-// Force l'utilisation d'IPv4
 dns.setDefaultResultOrder('ipv4first');
 
 export class MailService {
