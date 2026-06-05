@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import dns from 'dns';
 import nodemailer from 'nodemailer';
 import { Validation } from '../entities/Validation.js';
 
@@ -10,8 +11,10 @@ export class MailService {
         const user = process.env.SMTP_USER;
         const pass = process.env.SMTP_PASS;
 
-        // On utilise le service 'gmail' intégré de Nodemailer qui gère
-        // automatiquement host, port, SSL et force IPv4 — évite ENETUNREACH sur Render
+        // Force la résolution DNS en IPv4 uniquement.
+        // Sur Render (plan gratuit), IPv6 n'est pas routé et provoque ENETUNREACH.
+        dns.setDefaultResultOrder('ipv4first');
+
         this.transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: { user, pass },
@@ -31,7 +34,7 @@ export class MailService {
                     <div style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #1a73e8; text-align: center; padding: 16px; background: #f1f8ff; border-radius: 6px; margin: 16px 0;">
                         ${validation.code}
                     </div>
-                    <p style="color: #666; font-size: 13px;">Ce code est valable pendant <strong>5 minutes</strong>. Ne le partagez avec personne.</p>
+                    <p style="color: #666; font-size: 13px;">Ce code est valable pendant <strong>15 minutes</strong>. Ne le partagez avec personne.</p>
                     <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
                     <p style="font-size: 12px; color: #999;">Si vous n'avez pas demandé ce code, ignorez cet e-mail.</p>
                 </div>

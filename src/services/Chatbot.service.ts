@@ -275,24 +275,16 @@ export class ChatbotService {
       await this.saveMessage(conversation, text);
 
       // Génération et envoi de l'OTP
-      const codeOtp = await this.validationService.createValidation(user);
-      const validationRepo = AppDataSource.getRepository(Validation);
-      const validation = await validationRepo.findOne({
-        where: { code: codeOtp, user: { id: user.id } },
-        order: { creation: 'DESC' },
-        relations: { user: true },
-      });
-
-      if (validation) {
-        try {
-          await this.mailService.sendValidationEmail(validation);
-          console.log(`Email OTP envoyé à ${user.mail}`);
-        } catch (mailError) {
-          console.error('Erreur lors de l\'envoi de l\'email OTP:', mailError);
-        }
+      // createValidation retourne directement l'objet Validation complet — pas besoin d'une 2ème requête DB
+      const validation = await this.validationService.createValidation(user);
+      try {
+        await this.mailService.sendValidationEmail(validation);
+        console.log(`[OTP] Email envoyé à ${user.mail}`);
+      } catch (mailError) {
+        console.error('[OTP] Erreur envoi email:', mailError);
       }
 
-      const botMessage = `Bonjour *${user.firstname} ${user.lastname}* !\n\nPour sécuriser votre accès à Yas Simul, un code de validation OTP à 6 chiffres a été envoyé à votre adresse e-mail : *${user.mail}*.\n\nVeuillez saisir le code reçu ici pour continuer.`;
+      const botMessage = `Bonjour *${user.firstname} ${user.lastname}* !\n\nPour sécuriser votre accès à Yas Simul, un code de validation OTP à 6 chiffres a été envoyé à votre adresse e-mail : *${user.mail}*.\n\nVeuillez saisir le code reçu ici pour continuer. *(Valable 15 minutes)*`;
       const buttons = [
         { id: 'resend_otp', title: 'Renvoyer le code' }
       ];
@@ -312,25 +304,16 @@ export class ChatbotService {
 
         // Si l'utilisateur demande le renvoi du code
         if (selection === 'resend_otp' || cleanText === 'renvoyer' || cleanText === 'renvoyer le code') {
-          // Génération et envoi de l'OTP
-          const codeOtp = await this.validationService.createValidation(user);
-          const validationRepo = AppDataSource.getRepository(Validation);
-          const validation = await validationRepo.findOne({
-            where: { code: codeOtp, user: { id: user.id } },
-            order: { creation: 'DESC' },
-            relations: { user: true },
-          });
-
-          if (validation) {
-            try {
-              await this.mailService.sendValidationEmail(validation);
-              console.log(`Email OTP renvoyé à ${user.mail}`);
-            } catch (mailError) {
-              console.error('Erreur lors du renvoi de l\'email OTP:', mailError);
-            }
+          // createValidation retourne directement l'objet Validation complet
+          const validation = await this.validationService.createValidation(user);
+          try {
+            await this.mailService.sendValidationEmail(validation);
+            console.log(`[OTP] Email renvoyé à ${user.mail}`);
+          } catch (mailError) {
+            console.error('[OTP] Erreur renvoi email:', mailError);
           }
 
-          const botMessage = `Un nouveau code de validation OTP a été envoyé à votre adresse e-mail : *${user.mail}*.\n\nVeuillez le saisir ci-dessous pour continuer.`;
+          const botMessage = `Un nouveau code de validation OTP a été envoyé à votre adresse e-mail : *${user.mail}*.\n\nVeuillez le saisir ci-dessous pour continuer. *(Valable 15 minutes)*`;
           const buttons = [
             { id: 'resend_otp', title: 'Renvoyer le code' }
           ];
