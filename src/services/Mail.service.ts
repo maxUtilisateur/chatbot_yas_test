@@ -15,11 +15,13 @@ export class MailService {
             host,
             port,
             secure,
+            // Force IPv4 — Render free tier ne supporte pas IPv6
+            family: 4,
             auth: {
                 user: process.env.SMTP_USER,
                 pass: process.env.SMTP_PASS,
             }
-        });
+        } as nodemailer.TransportOptions);
     }
 
     public async sendValidationEmail(validation: Validation): Promise<void> {
